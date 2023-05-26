@@ -18,7 +18,6 @@ class JSONJobFile(JobFile):
 
         # Другие проверки критериев...
 
-        # Если все критерии выполнены, возвращаем True
         return True
 
     def add_vacancy(self, vacancy_data):
@@ -30,7 +29,7 @@ class JSONJobFile(JobFile):
         with open(self.filename, 'r') as file:
             for line in file:
                 vacancy = json.loads(line)
-                if criteria_matches(vacancy, criteria):
+                if self.criteria_matches(vacancy, criteria):
                     vacancies.append(vacancy)
         return vacancies
 

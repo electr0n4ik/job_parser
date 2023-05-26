@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import json
-from requests import *
 
 
 class JobApi(ABC):
