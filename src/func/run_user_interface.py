@@ -3,6 +3,7 @@ from src.func.prints import print_operations, print_welcome_user_1, print_welcom
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
+from src.vacancy import Vacancy
 
 
 def run_user_interface():
@@ -10,9 +11,9 @@ def run_user_interface():
     flag_1 = True
     flag_2 = True
 
-    hh = HeadHunter()
-    sj = SuperJob()
-    tv = TrudVsem()
+    hh = HeadHunter
+    sj = SuperJob
+    tv = TrudVsem
     list_platforms = [hh, sj, tv]
 
     print_welcome_user_1()
@@ -23,7 +24,7 @@ def run_user_interface():
 
         if user_input_pl in ["1", "2", "3"]:
             platform = list_platforms[int(user_input_pl) - 1]
-            print(f"Выбран сайт {platform}\n")
+            print(f"Выбран сайт {platform()}\n")
 
             while flag_2:
                 print_operations()
@@ -34,7 +35,8 @@ def run_user_interface():
 
                         if choice == "1":
                             search_query = input("Введите поисковый запрос: ")
-                            # Здесь можно вызвать соответствующую функцию для поиска вакансий по запросу
+                            res = platform().get_vacancies()
+                            continue_press = input("Нажмите ENTER, чтобы продолжить!")
 
                         elif choice == "2":
                             n = int(input("Сколько получить вакансий по убыванию зарплаты? "))
