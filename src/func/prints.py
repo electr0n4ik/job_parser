@@ -1,8 +1,12 @@
-def print_welcome_user():
+def print_welcome_user_1():
     print("\n---Парсер вакансий---\n"
-          "Получает информацию о вакансиях с разных платформ:\n1. headhunter.ru\n2. superjob.ru\n3. trudvsem.ru"
-          "\n0. Выход\n"
+          "Получает информацию о вакансиях с разных платформ."
           "\nСохраняет информацию в файл и позволяет удобно работать с ней (добавлять, фильтровать, удалять).")
+
+
+def print_welcome_user_2():
+    print("\n1. headhunter.ru\n2. superjob.ru\n3. trudvsem.ru"
+          "\n0. Выход\n")
 
 
 def print_operations():

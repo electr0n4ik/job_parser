@@ -1,11 +1,18 @@
 from requests import *
 import json
 from src.mixin import Mixin
+from src.abc.abc_job_api import JobApi
 
 
-class TrudVsem(Mixin):
-    """API «Работа России»"""
-    def __init__(self, offset=1, limit=1):
+class TrudVsem(JobApi, Mixin):
+
+    def __init__(self):
+        self._api_link = "https://opendata.trudvsem.ru/api/v1/vacancies/"
+
+    def __str__(self):
+        return "trudvsem.ru"
+
+    def connect(self):
         """
         Данные передаются постранично, не более 100 записей на странице. За пагинацию отвечают offset и limit.
         :param offset: Смещение
@@ -16,11 +23,6 @@ class TrudVsem(Mixin):
             "offset": offset,
             "limit": limit
         }
-
-    @staticmethod
-    def printj(data_dict) -> None:
-        """Выводит словарь в json-подобном удобном формате с отступами"""
-        print(json.dumps(data_dict, indent=2, ensure_ascii=False))
 
     def get_vacancies(self):
         response = get(self.url, params=self.params)
