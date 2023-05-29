@@ -1,3 +1,7 @@
+from src.func.process_digits import process_digits
+from src.func.prints import print_operations, print_welcome_user
+
+
 def run_user_interface():
     """Функция для взаимодействия с пользователем в консоле."""
     flag_1 = True
@@ -7,6 +11,8 @@ def run_user_interface():
     sj = "SuperJob()"
     tv = "TrudVsem()"
     list_platforms = [hh, sj, tv]
+
+    print_welcome_user()
 
     while flag_1:
         user_input_pl = input("Выбери цифрой платформу: ")
