@@ -3,7 +3,7 @@ import json
 
 
 class Mixin:
-
+    """Красивый вывод информации о вакансии."""
     @staticmethod
     def print_pt(data):
         data_dict = json.loads(data)
