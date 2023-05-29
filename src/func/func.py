@@ -34,12 +34,6 @@ def run_user_interface():
     tv = "TrudVsem()"
     list_platforms = [hh, sj, tv]
 
-    search_func = 0
-    top_n = 0
-    vac_region = 0
-    key_word_des = 0
-    list_req = [search_func, top_n, vac_region, key_word_des]  # TODO
-
     while flag_1:
         user_input_pl = input("Выбери цифрой платформу: ")
 
