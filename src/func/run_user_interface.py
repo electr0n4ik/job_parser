@@ -1,5 +1,6 @@
 from src.func.process_digits import process_digits
 from src.func.prints import print_operations, print_welcome_user
+from src.headhunter import HeadHunter
 
 
 def run_user_interface():
@@ -7,7 +8,7 @@ def run_user_interface():
     flag_1 = True
     flag_2 = True
 
-    hh = "HeadHunter()"
+    hh = HeadHunter()
     sj = "SuperJob()"
     tv = "TrudVsem()"
     list_platforms = [hh, sj, tv]
@@ -19,7 +20,8 @@ def run_user_interface():
 
         if user_input_pl in ["1", "2", "3"]:
             print(f"Выбран сайт {list_platforms[int(user_input_pl) - 1]}")
-
+            platform = list_platforms[int(user_input_pl) - 1]
+            print(platform)
             while flag_2:
                 print_operations()
                 user_input_req = input("Выбери цифрой (1, 2, 3, 4) запрос/сы\n(при необходимости несколько): ")
