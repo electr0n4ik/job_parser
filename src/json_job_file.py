@@ -1,12 +1,11 @@
 import json
 import os
 from src.abc.abc_job_file import JobFile
-from src.func.ensure_file_exists import ensure_file_exists
 
 
 class JSONJobFile(JobFile):
     def __init__(self, filename):
-        self.filename = filename
+        self.filename = os.path.abspath(filename)
 
     @staticmethod
     def criteria_matches(vacancy, criteria):
@@ -23,11 +22,12 @@ class JSONJobFile(JobFile):
         return True
 
     def add_vacancy(self, vacancy_data):
-        with open(f"{self.filename}", "w") as file:
+
+        with open(self.filename, "w") as file:
             json.dump(vacancy_data, file)
 
-        with open(f"{self.filename}", "r") as file:
-            print(json.load(file))
+        with open(self.filename, "r") as file:
+            return json.load(file)
 
     def get_vacancies(self, criteria):
         vacancies = []
@@ -48,7 +48,5 @@ class JSONJobFile(JobFile):
                     file.write(line)
 
 
-file_path = os.path.abspath("data/package.json")
-test = JSONJobFile(file_path)
-
-test.add_vacancy("123")
+test = JSONJobFile("package.json")
+print(test.add_vacancy("test_data"))
