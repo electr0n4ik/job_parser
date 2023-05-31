@@ -6,6 +6,9 @@ import json
 
 
 class HeadHunter(JSONJobFile, JobApi):
+    """Класс, наследующийся от абстрактного класса,
+    для работы с платформой HeadHunter,
+    и класса, для работы с файлом, содержащем вакансии hh.ru"""
 
     def __init__(self):
         filename = "hhru.json"
@@ -33,4 +36,5 @@ class HeadHunter(JSONJobFile, JobApi):
             return None
 
     def get_vac_search(self):
+        """Получить вакансии по ключевому слову"""
         pass
