@@ -5,6 +5,7 @@ def print_prettytable_hhru(json_data):
     table = PrettyTable()
     # table.field_names = json_data["items"][0].keys()
     table.field_names = ["id", "name", "area"]
+
     # Установка горизонтальных линий
     table.hrules = ALL
 
