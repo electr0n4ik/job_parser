@@ -9,7 +9,7 @@ class JobFile(ABC):
 
     @abstractmethod
     def get_vacancies(self, criteria):
-        """Возвращает данные о вакансиях, соответствующих указанным критериям"""
+        """Возвращает данные о вакансиях, соответствующие указанным критериям"""
         pass
 
     @abstractmethod

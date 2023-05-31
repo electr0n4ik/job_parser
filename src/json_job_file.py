@@ -16,7 +16,8 @@ class JSONJobFile(JobFile):
         # Проверяем, соответствует ли должность критериям
         if 'job_name' in criteria and vacancy.get('job_name') != criteria['job_name']:
             return False
-
+        # TODO
+        # Подумать над другими проверками критериев
         # Другие проверки критериев...
 
         return True
@@ -29,9 +30,6 @@ class JSONJobFile(JobFile):
         with open(file_path, "w") as file:
             json.dump(vacancy_data, file)
 
-        with open(file_path, "r") as file:
-            return json.load(file)
-
     def get_vacancies(self, criteria):
         vacancies = []
         with open(self.filename, 'r') as file:
@@ -42,9 +40,9 @@ class JSONJobFile(JobFile):
         return vacancies
 
     def remove_vacancy(self, vacancy_id):
-
         with open(self.filename, 'r') as file:
             lines = file.readlines()
+
         with open(self.filename, 'w') as file:
             for line in lines:
                 vacancy = json.loads(line)
