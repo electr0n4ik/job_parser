@@ -23,7 +23,7 @@ class JSONJobFile(JobFile):
 
     def add_vacancy(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
-        folder_path = os.path.abspath("data_vacancys")
+        folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)
 
         with open(file_path, "w") as file:
@@ -50,7 +50,3 @@ class JSONJobFile(JobFile):
                 vacancy = json.loads(line)
                 if vacancy.get('id') != vacancy_id:
                     file.write(line)
-
-
-test = JSONJobFile("123package.json")
-print(test.add_vacancy("test_data"))

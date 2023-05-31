@@ -10,10 +10,11 @@ class HeadHunter(JSONJobFile, JobApi):
     для работы с платформой HeadHunter,
     и класса, для работы с файлом, содержащем вакансии hh.ru"""
 
+    _api_link = "https://api.hh.ru/vacancies"
+
     def __init__(self):
         filename = "hhru.json"
         super().__init__(filename)
-        self._api_link = "https://api.hh.ru/vacancies"
 
     def __str__(self):
         return "headhunter.ru"
