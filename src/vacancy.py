@@ -6,7 +6,8 @@ class Vacancy:
         - зарплата;
         - работодатель;
         - краткое описание;
-        - ссылка на вакансию.
+        - ссылка на вакансию;
+        - регион.
     """
     def __init__(self, title, salary, company_name, description, link, region):
         self.title = self.validate_str(title, "title")

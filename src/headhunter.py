@@ -41,7 +41,3 @@ class HeadHunter(JSONJobFile, JobApi):
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
-
-    def get_vac_search(self):
-        """Получить вакансии по ключевому слову"""
-        pass
