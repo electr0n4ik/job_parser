@@ -41,8 +41,6 @@ class EXCELJobFile(JobFile):
 
         workbook.save(file_path)
 
-        return self.get_vacancies({})  # Возвращаем все вакансии после добавления новой
-
     def get_vacancies(self, criteria):
         vacancies = []
         file_path = os.path.join(os.path.abspath("data_vacancies"), self.filename)
