@@ -1,3 +1,5 @@
+import os
+from src.func.beautiful_table import print_prettytable
 from src.func.process_digits import process_digits
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
 from src.headhunter import HeadHunter
@@ -21,13 +23,13 @@ def run_user_interface():
     while flag_1:
         print_welcome_user_2()
         user_input_pl = input("Выбери цифрой платформу: ")
-
         if user_input_pl in ["1", "2", "3"]:
             platform = list_platforms[int(user_input_pl) - 1]
             print(f"Выбран сайт {platform()}\n")
 
             while flag_2:
                 print_operations()
+
                 user_input_req = input("Выбери цифрой (1, 2, 3, 4) запрос/сы\n(при необходимости несколько): ")
 
                 if process_digits(user_input_req):
@@ -35,8 +37,9 @@ def run_user_interface():
 
                         if choice == "1":
                             search_query = input("Введите поисковый запрос: ")
-                            res = platform().get_vacancies()
-                            continue_press = input("Нажмите ENTER, чтобы продолжить!")
+                            res = platform().get_search_vacancies(search_query)
+                            print(print_prettytable(res))
+                            input("Нажмите ENTER, чтобы продолжить!")
 
                         elif choice == "2":
                             n = int(input("Сколько получить вакансий по убыванию зарплаты? "))

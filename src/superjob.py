@@ -20,7 +20,7 @@ class SuperJob(JSONJobFile, JobApi):
     def __str__(self):
         return "superjob.ru"
 
-    def get_vacancies(self, **kwargs):
+    def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
         town - город ("Москва")
@@ -45,6 +45,5 @@ class SuperJob(JSONJobFile, JobApi):
             print("Ошибка при выполнении запроса.")
             return []
 
-
-sj = SuperJob()
-print(sj.get_vacancies(keyword="программист", town="Москва", count=1))
+    def get_search_vacancies(self, search_data):
+        return self.get_vacancies_api(keyword=search_data)

@@ -13,7 +13,7 @@ class JobApi(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies(self):
+    def get_vacancies_api(self):
         """Подключение к API и получение вакансий"""
         pass
 

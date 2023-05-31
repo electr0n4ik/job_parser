@@ -19,7 +19,7 @@ class TrudVsem(JSONJobFile, JobApi):
     def __str__(self):
         return "trudvsem.ru"
 
-    def get_vacancies(self, **kwargs):
+    def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
         offset - смещение
@@ -42,3 +42,6 @@ class TrudVsem(JSONJobFile, JobApi):
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
+
+    def get_search_vacancies(self, search_data):
+        return self.get_vacancies_api(text=search_data)

@@ -19,7 +19,7 @@ class HeadHunter(JSONJobFile, JobApi):
     def __str__(self):
         return "headhunter.ru"
 
-    def get_vacancies(self, **kwargs):
+    def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
         area - Код региона (1 - Москва)
@@ -41,3 +41,13 @@ class HeadHunter(JSONJobFile, JobApi):
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
+
+    def get_search_vacancies(self, search_data):
+        return self.get_vacancies_api(text=search_data)
+
+
+from src.func.beautiful_table import print_prettytable
+
+hh = HeadHunter()
+
+print_prettytable(hh.get_search_vacancies("python"))
