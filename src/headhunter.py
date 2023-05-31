@@ -13,18 +13,24 @@ class HeadHunter(JSONJobFile, JobApi):
     _api_link = "https://api.hh.ru/vacancies"
 
     def __init__(self):
-        filename = "hhru.json"
+        filename = "headhunter.json"
         super().__init__(filename)
 
     def __str__(self):
         return "headhunter.ru"
 
-    def get_vacancies(self, area=1, text="работа", per_page="10"):
-        params = {
-            "area": area,  # Код региона (1 - Москва)
-            "text": text,  # Поисковый запрос
-            "per_page": per_page  # Количество вакансий на странице
-        }
+    def get_vacancies(self, **kwargs):
+        """
+        :param kwargs:
+        area - Код региона (1 - Москва)
+        text - Поисковый запрос
+        per_page - Количество вакансий на странице
+        """
+        params = {}
+
+        for key, value in kwargs.items():
+            params[key] = value
+
         response = get(self._api_link, params=params)
 
         if response.status_code == 200:

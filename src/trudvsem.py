@@ -1,37 +1,42 @@
+from src.abc.abc_job_api import JobApi
+from src.json_job_file import JSONJobFile
+
 from requests import *
 import json
-from src.mixin import Mixin
-from src.abc.abc_job_api import JobApi
 
 
-class TrudVsem(JobApi, Mixin):
+class TrudVsem(JSONJobFile, JobApi):
+    """Класс, наследующийся от абстрактного класса,
+    для работы с платформой TrudVsem,
+    и класса, для работы с файлом, содержащем вакансии trudvsem.ru"""
+
+    _api_link = "https://opendata.trudvsem.ru/api/v1/vacancies/"
 
     def __init__(self):
-        self._api_link = "https://opendata.trudvsem.ru/api/v1/vacancies/"
+        filename = "trudvsem.json"
+        super().__init__(filename)
 
     def __str__(self):
         return "trudvsem.ru"
 
-    def connect(self):
+    def get_vacancies(self, **kwargs):
         """
-        Данные передаются постранично, не более 100 записей на странице. За пагинацию отвечают offset и limit.
-        :param offset: Смещение
-        :param limit: Число элементов
+        :param kwargs:
+        offset - смещение
+        limit - Количество вакансий для вывода
         """
-        self.url = "https://opendata.trudvsem.ru/api/v1/vacancies/"
-        self.params = {
-            "offset": offset,
-            "limit": limit
-        }
+        params = {}
 
-    def get_vacancies(self):
-        response = get(self.url, params=self.params)
+        for key, value in kwargs.items():
+            params[key] = value
+
+        response = get(self._api_link, params=params)
 
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            # self.printj(data_dict)
-            self.print_pt(json.dumps(data_dict, indent=2, ensure_ascii=False))
+            self.add_vacancy(data_dict)
+            return data_dict
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
