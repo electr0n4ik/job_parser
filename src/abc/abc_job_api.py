@@ -3,7 +3,7 @@ import json
 
 
 class JobApi(ABC):
-
+    """Абстрактный класс для работы с API сайтов с вакансиями"""
     @abstractmethod
     def __init__(self):
         pass
@@ -14,6 +14,7 @@ class JobApi(ABC):
 
     @abstractmethod
     def get_vacancies(self):
+        """Подключение к API и получение вакансий"""
         pass
 
     @staticmethod

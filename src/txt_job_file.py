@@ -3,7 +3,7 @@ import os
 from src.abc.abc_job_file import JobFile
 
 
-class JSONJobFile(JobFile):
+class TXTJobFile(JobFile):
     def __init__(self, filename):
         self.filename = filename
 
@@ -22,37 +22,29 @@ class JSONJobFile(JobFile):
 
         return True
 
-    def add_vacancy_to_json(self, vacancy_data):
+    def add_vacancy(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
         folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)
 
         with open(file_path, "w") as file:
-            json.dump(vacancy_data, file)
-
-    def add_vacancy_to_txt(self, vacancy_data):
-        os.chdir(os.path.abspath(".."))
-        folder_path = os.path.abspath("data_vacancies")
-        file_path = os.path.join(folder_path, self.filename)
-
-        with open(file_path, "w") as file:
-            file.write(str(vacancy_data))
+            file.write(json.dumps(vacancy_data))
 
     def get_vacancies(self, criteria):
         vacancies = []
         with open(self.filename, 'r') as file:
-            for line in file:
-                vacancy = json.loads(line)
-                if self.criteria_matches(vacancy, criteria):
-                    vacancies.append(vacancy)
+            data = json.load(file)
+            if isinstance(data, list):
+                for vacancy in data:
+                    if self.criteria_matches(vacancy, criteria):
+                        vacancies.append(vacancy)
         return vacancies
 
     def remove_vacancy(self, vacancy_id):
         with open(self.filename, 'r') as file:
-            lines = file.readlines()
+            data = json.load(file)
+            if isinstance(data, list):
+                filtered_data = [vacancy for vacancy in data if vacancy.get('id') != vacancy_id]
 
         with open(self.filename, 'w') as file:
-            for line in lines:
-                vacancy = json.loads(line)
-                if vacancy.get('id') != vacancy_id:
-                    file.write(line)
+            file.write(json.dumps(filtered_data))
