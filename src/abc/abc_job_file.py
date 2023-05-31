@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class JobFile(ABC):
     @abstractmethod
     def add_vacancy(self, vacancy_data):
-        """Добавляет информацию о вакансии в файл"""
+        """Добавляет информацию о вакансии в JSON-файл"""
         pass
 
     @abstractmethod

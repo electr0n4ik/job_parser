@@ -22,13 +22,21 @@ class JSONJobFile(JobFile):
 
         return True
 
-    def add_vacancy(self, vacancy_data):
+    def add_vacancy_to_json(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
         folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)
 
         with open(file_path, "w") as file:
             json.dump(vacancy_data, file)
+
+    def add_vacancy_to_txt(self, vacancy_data):
+        os.chdir(os.path.abspath(".."))
+        folder_path = os.path.abspath("data_vacancies")
+        file_path = os.path.join(folder_path, self.filename)
+
+        with open(file_path, "w") as file:
+            file.write(str(vacancy_data))
 
     def get_vacancies(self, criteria):
         vacancies = []
