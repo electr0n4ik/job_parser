@@ -26,8 +26,8 @@ class HeadHunter(JSONJobFile, JobApi):
         text - Поисковый запрос
         per_page - Количество вакансий на странице
         """
-        params = {}
 
+        params = {}
         for key, value in kwargs.items():
             params[key] = value
 
@@ -46,8 +46,8 @@ class HeadHunter(JSONJobFile, JobApi):
         return self.get_vacancies_api(text=search_data)
 
 
-from src.func.beautiful_table import print_prettytable
+from src.func.beautiful_table import print_prettytable_hhru
 
 hh = HeadHunter()
 
-print_prettytable(hh.get_search_vacancies("python"))
+print_prettytable_hhru(hh.get_search_vacancies("python"))
