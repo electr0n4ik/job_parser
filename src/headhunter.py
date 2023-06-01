@@ -1,11 +1,14 @@
 from src.abc.abc_job_api import JobApi
 from src.json_job_file import JSONJobFile
+from src.csv_job_file import CSVJobFile
+from src.exel_job_file import EXCELJobFile
+from src.txt_job_file import TXTJobFile
 
 from requests import *
 import json
 
 
-class HeadHunter(JSONJobFile, JobApi):
+class HeadHunter(JobApi):
     """Класс, наследующийся от абстрактного класса,
     для работы с платформой HeadHunter,
     и класса, для работы с файлом, содержащем вакансии hh.ru"""
@@ -13,8 +16,7 @@ class HeadHunter(JSONJobFile, JobApi):
     _api_link = "https://api.hh.ru/vacancies"
 
     def __init__(self):
-        filename = "headhunter.json"
-        super().__init__(filename)
+        pass
 
     def __str__(self):
         return "headhunter.ru"
@@ -36,7 +38,6 @@ class HeadHunter(JSONJobFile, JobApi):
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            self.add_vacancy(data_dict)
             return data_dict
         else:
             print("Ошибка при выполнении запроса:", response.status_code)

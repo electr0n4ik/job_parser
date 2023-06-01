@@ -2,6 +2,7 @@ from prettytable import PrettyTable, ALL
 
 
 def print_prettytable_hhru(json_data):
+
     table = PrettyTable()
     # table.field_names = json_data["items"][0].keys()
     table.field_names = ["id", "Вакансия", "Зарплата", "Работодатель", "Описание", "Ссылка", "Регион"]
@@ -10,19 +11,26 @@ def print_prettytable_hhru(json_data):
     table.hrules = ALL
 
     for item in json_data["items"]:
-        try:
-            item_values = [
-                item.get("id", ""),  # 1 столбец id
-                item.get("name", ""),  # 2 столбец Вакансия
-                f'{item.get("salary", {}).get("from", "")} '
-                f'{item.get("salary", {}).get("currency", "")}',  # 3 столбец Зарплата
-                item.get("employer", {}).get("name", ""),  # 4 столбец Работодатель
-                f'{item.get("snippet", {}).get("requirement", "")[0:50]}...',  # 5 столбец Описание
-                item.get("alternate_url", ""),  # 6 столбец Ссылка
-                item.get("area", {}).get("name", "")  # 7 столбец Регион
-            ]
-            table.add_row(item_values)
-        except:
-            break
+        item_values = []
+        item_values.append(item.get("id", ""))
+        item_values.append(item.get("name", ""))
+        if item.get("salary", "") is not None:
+            item_values.append(f'{item.get("salary", {}).get("from", "")} '
+                               f'{item.get("salary", {}).get("currency", "")}')
+        elif item.get("salary", "") is not None:
+            if item.get("salary", {}).get("from") is None:
+                item_values.append(f'{item.get("salary", {}).get("to", "")} '
+                                   f'{item.get("salary", {}).get("currency", "")}')
+        else:
+            item_values.append("Не указана")
+        item_values.append(item.get("employer", {}).get("name", ""))
+        if item.get("snippet", {}).get("responsibility", "") is not None:
+            item_values.append(f'{item.get("snippet", {}).get("responsibility", "")[0:50]}...')
+        else:
+            item_values.append("Не указано")
+        item_values.append(item.get("alternate_url", ""))
+        item_values.append(item.get("area", {}).get("name", ""))
 
-    print(table)
+        table.add_row(item_values)
+
+    return table

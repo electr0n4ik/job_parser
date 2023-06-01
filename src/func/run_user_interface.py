@@ -1,7 +1,8 @@
 import os
-from src.func.beautiful_table import print_prettytable
+
 from src.func.process_digits import process_digits
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
+from src.func.prints import print_result_search
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
@@ -38,7 +39,7 @@ def run_user_interface():
                         if choice == "1":
                             search_query = input("Введите поисковый запрос: ")
                             res = platform().get_search_vacancies(search_query)
-                            print(print_prettytable(res))
+                            print(print_result_search(platform, res))
                             input("Нажмите ENTER, чтобы продолжить!")
 
                         elif choice == "2":
