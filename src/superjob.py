@@ -5,7 +5,7 @@ from requests import *
 import json
 
 
-class SuperJob(JSONJobFile, JobApi):
+class SuperJob(JobApi):
     """Класс, наследующийся от абстрактного класса,
     для работы с платформой SuperJob,
     и класса, для работы с файлом, содержащем вакансии superjob.ru"""
@@ -14,8 +14,9 @@ class SuperJob(JSONJobFile, JobApi):
     _api_link = "https://api.superjob.ru/2.0/vacancies"
 
     def __init__(self):
-        filename = "superjob.json"
-        super().__init__(filename)
+        pass
+        # filename = "superjob.json"
+        # super().__init__(filename)
 
     def __str__(self):
         return "superjob.ru"
@@ -39,7 +40,6 @@ class SuperJob(JSONJobFile, JobApi):
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            self.add_vacancy(data_dict)
             return data_dict
         else:
             print("Ошибка при выполнении запроса.")
@@ -47,3 +47,7 @@ class SuperJob(JSONJobFile, JobApi):
 
     def get_search_vacancies(self, search_data):
         return self.get_vacancies_api(keyword=search_data)
+
+
+sj = SuperJob()
+sj.printj(sj.get_vacancies_api())
