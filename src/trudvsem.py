@@ -24,6 +24,7 @@ class TrudVsem(JSONJobFile, JobApi):
         :param kwargs:
         offset - смещение
         limit - Количество вакансий для вывода
+        region - конкретный регион
         text - ключевое слово для поиска по тексту
             (Для поиска по фразе не указывайте никакие дополнительные символы)
         """
@@ -43,5 +44,8 @@ class TrudVsem(JSONJobFile, JobApi):
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
 
-    def get_search_vacancies(self, search_data):
-        return self.get_vacancies_api(text=search_data)
+    def get_search_vacancies(self, search_data, n=10):
+        return self.get_vacancies_api(text=search_data, limit=n)
+
+    def get_region_vacancies(self, region):
+        return self.get_vacancies_api(region=region)

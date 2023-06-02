@@ -45,8 +45,11 @@ class SuperJob(JobApi):
             print("Ошибка при выполнении запроса.")
             return []
 
-    def get_search_vacancies(self, search_data):
-        return self.get_vacancies_api(keyword=search_data)
+    def get_search_vacancies(self, search_data, n=10):
+        return self.get_vacancies_api(keyword=search_data, count=n)
+
+    def get_region_vacancies(self, region):
+        return self.get_vacancies_api(town=region)
 
 
 # sj = SuperJob()

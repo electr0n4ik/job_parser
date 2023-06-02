@@ -1,3 +1,7 @@
+def str_to_digit(input_str):
+    return int(input_str.split(" ")[0])
+
+
 class Vacancy:
     """
     Класс для работы с вакансиями.
@@ -9,7 +13,7 @@ class Vacancy:
         - ссылка на вакансию;
         - регион.
     """
-    def __init__(self, name, salary, company_name, description, link, region):
+    def __init__(self, name: str, salary: str, company_name: str, description: str, link: str, region: str):
         self.name = self.validate_str(name, "title")
         self.salary = self.validate_int_float(salary, "salary")
         self.company_name = self.validate_str(company_name, "company_name")
@@ -30,10 +34,10 @@ class Vacancy:
         raise ValueError(f"Invalid {name_col}, {name_col} must be a number.")
 
     def __eq__(self, other):
-        return self.salary == other.salary
+        return str_to_digit(self.salary) == str_to_digit(other.salary)
 
     def __lt__(self, other):
-        return self.salary < other.salary
+        return str_to_digit(self.salary) < str_to_digit(other.salary)
 
     def __gt__(self, other):
-        return self.salary > other.salary
+        return str_to_digit(self.salary) > str_to_digit(other.salary)

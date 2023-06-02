@@ -1,12 +1,8 @@
-import os
-
-from src.func.process_digits import process_digits
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
 from src.func.prints import print_result_search
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
-from src.vacancy import Vacancy
 
 
 def run_user_interface():
@@ -31,35 +27,43 @@ def run_user_interface():
             while flag_2:
                 print_operations()
 
-                user_input_req = input("Выбери цифрой (1, 2, 3, 4) запрос/сы\n(при необходимости несколько): ")
+                choice = input("Выбери цифрой (1, 2, 3, 4) запрос: ")
 
-                if process_digits(user_input_req):
-                    for choice in process_digits(user_input_req):
+                if choice == "1":
+                    search_query = input("Введите поисковый запрос: ")
+                    res = platform().get_search_vacancies(search_query)
+                    print(print_result_search(platform, res))
+                    input("Нажмите ENTER, чтобы продолжить!")
 
-                        if choice == "1":
-                            search_query = input("Введите поисковый запрос: ")
-                            res = platform().get_search_vacancies(search_query)
-                            print(print_result_search(platform, res))
-                            input("Нажмите ENTER, чтобы продолжить!")
+                elif choice == "2":
+                    search_query = input("Введите поисковый запрос: ")
+                    n_salary = int(input("Сколько получить вакансий по возрастанию зарплаты? "))
+                    if 0 < int(n) < 100:
+                        res = platform().get_search_vacancies(search_query, n_salary)
+                    elif int(n) < 0:
+                        res = platform().get_search_vacancies(search_query, 10)
+                    else:
+                        res = platform().get_search_vacancies(search_query, 100)
+                    print(print_result_search(platform, res, "Зарплата"))
+                    input("Нажмите ENTER, чтобы продолжить!")
 
-                        elif choice == "2":
-                            n = int(input("Сколько получить вакансий по возрастанию зарплаты? "))
-                            res = platform().get_search_vacancies(n)
-                            print(print_result_search(platform, res))
-                            input("Нажмите ENTER, чтобы продолжить!")
+                elif choice == "3":
+                    region = input("Получить вакансии выбранного региона: ")
+                    res = platform().get_region_vacancies(region)
+                    print(print_result_search(platform, res))
+                    input("Нажмите ENTER, чтобы продолжить!")
 
-                        elif choice == "3":
-                            vac_region = input("Получить вакансии выбранного региона: ")
-                            # Здесь можно вызвать соответствующую функцию для получения вакансий в отсортированном виде
+                elif choice == "4":
+                    keywords = input("Получить вакансии, по ключевому слову в описании: ")
+                    # Здесь можно вызвать соответствующую функцию для поиска
+                    # вакансий с указанными ключевыми словами
 
-                        elif choice == "4":
-                            keywords = input("Получить вакансии, по ключевому слову в описании: ")
-                            # Здесь можно вызвать соответствующую функцию для поиска
-                            # вакансий с указанными ключевыми словами
-
-                        elif choice == "0":
-                            flag_2 = False
-                            break
+                elif choice == "0":
+                    flag_2 = False
+                    break
+                else:
+                    print("\nВЫБЕРИ ЗАПРОС ВЕРНО!\n")
+                    continue
 
         elif user_input_pl == "0":
             flag_1 = False

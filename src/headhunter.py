@@ -43,8 +43,11 @@ class HeadHunter(JobApi):
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
 
-    def get_search_vacancies(self, search_data):
-        return self.get_vacancies_api(text=search_data)
+    def get_search_vacancies(self, search_data, n=10):
+        return self.get_vacancies_api(text=search_data, per_page=n)
+
+    def get_region_vacancies(self, region):
+        return self.get_vacancies_api(area=region)
 
 
 # from src.func.beautiful_table import print_prettytable_hhru

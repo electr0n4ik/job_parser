@@ -10,7 +10,7 @@ def get_prettytable():
     return table
 
 
-def print_prettytable_hhru(json_data):
+def print_prettytable_hhru(json_data, sorty):
 
     table = get_prettytable()
 
@@ -36,11 +36,10 @@ def print_prettytable_hhru(json_data):
         item_values.append(item.get("area", {}).get("name", ""))
 
         table.add_row(item_values)
+    return table.get_string(sortby=sorty)
 
-    return table
 
-
-def print_prettytable_sj(json_data):
+def print_prettytable_sj(json_data, sorty):
 
     table = get_prettytable()
 
@@ -61,10 +60,10 @@ def print_prettytable_sj(json_data):
 
         table.add_row(item_values)
 
-    return table
+    return table.get_string(sortby=sorty)
 
 
-def print_prettytable_tv(json_data):
+def print_prettytable_tv(json_data, sorty):
 
     table = get_prettytable()
 
@@ -85,4 +84,4 @@ def print_prettytable_tv(json_data):
 
         table.add_row(item_values)
 
-    return table
+    return table.get_string(sortby=sorty)

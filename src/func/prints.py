@@ -22,10 +22,10 @@ def print_operations():
           "\n0. Назад.\n")
 
 
-def print_result_search(platform, res):
+def print_result_search(platform, res, sorty="id"):
     if f"{platform()}" == "headhunter.ru":
-        return print_prettytable_hhru(res)
+        return print_prettytable_hhru(res, sorty)
     elif f"{platform()}" == "superjob.ru":
-        return print_prettytable_sj(res)
+        return print_prettytable_sj(res, sorty)
     elif f"{platform()}" == "trudvsem.ru":
-        return print_prettytable_tv(res)
+        return print_prettytable_tv(res, sorty)
