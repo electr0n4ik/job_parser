@@ -10,7 +10,7 @@ def get_prettytable():
     return table
 
 
-def print_prettytable_hhru(json_data, sorty):
+def print_prettytable_hhru(json_data, sorty: str):
 
     table = get_prettytable()
 

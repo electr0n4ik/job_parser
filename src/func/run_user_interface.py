@@ -1,9 +1,9 @@
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
-from src.func.prints import print_result_search, print_save_format
-from src.func.save_file import save_file
+from src.func.prints import print_result_search
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
+from src.json_job_file import JSONJobFile
 
 
 def run_user_interface():
@@ -40,7 +40,7 @@ def run_user_interface():
 
                 elif choice == "2":
                     search_query = input("Введите поисковый запрос: ")
-                    n_salary = int(input("Сколько получить вакансий по возрастанию зарплаты? "))
+                    n_salary = int(input("Сколько получить вакансий по зарплате? "))
                     if 0 < int(n_salary) < 100:
                         res = platform().get_search_vacancies(search_query, n_salary)
                     elif int(n_salary) < 0:
@@ -74,18 +74,18 @@ def run_user_interface():
                     continue
 
             # Блок сохранения информации о вакансиях в файл
-            choice_save_file = print_save_format()
 
-            file_vacancies = save_file(choice_save_file, res)
+            filename = "data_vacancies.json"
+            js_file = JSONJobFile(filename)  # JSON
+            file_path = js_file.add_vacancy(res)
 
             # Блок управления вакансиями в файле
             user_choice = input("1 - Посмотреть вакансии\n"
                                 "2 - Фильтровать по зарплате\n"
-                                "3 - Удалить вакансии по id")
+                                "3 - Удалить вакансии по id\n")
 
             if user_choice == "1":
-                with open(file_vacancies) as file:
-                    pass
+                print(js_file.get_vacancies(platform))
             elif user_choice == "2":
                 pass
             elif user_choice == "3":

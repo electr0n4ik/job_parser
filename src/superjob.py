@@ -1,5 +1,5 @@
 from src.abc.abc_job_api import JobApi
-from src.json_job_file import JSONJobFile
+
 
 from requests import *
 import json

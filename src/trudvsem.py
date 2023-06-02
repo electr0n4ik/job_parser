@@ -1,11 +1,11 @@
 from src.abc.abc_job_api import JobApi
-from src.json_job_file import JSONJobFile
+
 
 from requests import *
 import json
 
 
-class TrudVsem(JSONJobFile, JobApi):
+class TrudVsem(JobApi):
     """Класс, наследующийся от абстрактного класса,
     для работы с платформой TrudVsem,
     и класса, для работы с файлом, содержащем вакансии trudvsem.ru"""
@@ -38,7 +38,6 @@ class TrudVsem(JSONJobFile, JobApi):
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            self.add_vacancy(data_dict)
             return data_dict
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
