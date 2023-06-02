@@ -1,3 +1,8 @@
+from src.func.beautiful_table import print_prettytable_hhru
+from src.func.beautiful_table import print_prettytable_sj
+from src.func.beautiful_table import print_prettytable_tv
+
+
 def print_welcome_user_1():
     print("\n---Парсер вакансий---\n"
           "Получает информацию о вакансиях с разных платформ."
@@ -15,3 +20,12 @@ def print_operations():
           "\n3. Получить вакансии выбранного региона;"
           "\n4. Получить вакансии, по ключевому слову в описании.\n"
           "\n0. Назад.\n")
+
+
+def print_result_search(platform, res, sorty="id"):
+    if f"{platform()}" == "headhunter.ru":
+        return print_prettytable_hhru(res, sorty)
+    elif f"{platform()}" == "superjob.ru":
+        return print_prettytable_sj(res, sorty)
+    elif f"{platform()}" == "trudvsem.ru":
+        return print_prettytable_tv(res, sorty)

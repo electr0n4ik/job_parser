@@ -1,11 +1,11 @@
 from src.abc.abc_job_api import JobApi
-from src.json_job_file import JSONJobFile
+
 
 from requests import *
 import json
 
 
-class SuperJob(JSONJobFile, JobApi):
+class SuperJob(JobApi):
     """Класс, наследующийся от абстрактного класса,
     для работы с платформой SuperJob,
     и класса, для работы с файлом, содержащем вакансии superjob.ru"""
@@ -14,13 +14,14 @@ class SuperJob(JSONJobFile, JobApi):
     _api_link = "https://api.superjob.ru/2.0/vacancies"
 
     def __init__(self):
-        filename = "superjob.json"
-        super().__init__(filename)
+        pass
+        # filename = "superjob.json"
+        # super().__init__(filename)
 
     def __str__(self):
         return "superjob.ru"
 
-    def get_vacancies(self, **kwargs):
+    def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
         town - город ("Москва")
@@ -39,12 +40,17 @@ class SuperJob(JSONJobFile, JobApi):
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            self.add_vacancy(data_dict)
             return data_dict
         else:
             print("Ошибка при выполнении запроса.")
             return []
 
+    def get_search_vacancies(self, search_data, n=10):
+        return self.get_vacancies_api(keyword=search_data, count=n)
 
-sj = SuperJob()
-print(sj.get_vacancies(keyword="программист", town="Москва", count=1))
+    def get_region_vacancies(self, region, n=10):
+        return self.get_vacancies_api(town=region, count=n)
+
+
+# sj = SuperJob()
+# sj.printj(sj.get_vacancies_api())

@@ -1,11 +1,10 @@
 from src.abc.abc_job_api import JobApi
-from src.json_job_file import JSONJobFile
 
 from requests import *
 import json
 
 
-class HeadHunter(JSONJobFile, JobApi):
+class HeadHunter(JobApi):
     """Класс, наследующийся от абстрактного класса,
     для работы с платформой HeadHunter,
     и класса, для работы с файлом, содержащем вакансии hh.ru"""
@@ -13,21 +12,20 @@ class HeadHunter(JSONJobFile, JobApi):
     _api_link = "https://api.hh.ru/vacancies"
 
     def __init__(self):
-        filename = "headhunter.json"
-        super().__init__(filename)
+        pass
 
     def __str__(self):
         return "headhunter.ru"
 
-    def get_vacancies(self, **kwargs):
+    def get_vacancies_api(self, **kwargs):
         """
         :param kwargs:
         area - Код региона (1 - Москва)
         text - Поисковый запрос
         per_page - Количество вакансий на странице
         """
-        params = {}
 
+        params = {}
         for key, value in kwargs.items():
             params[key] = value
 
@@ -36,8 +34,21 @@ class HeadHunter(JSONJobFile, JobApi):
         if response.status_code == 200:
             data = response.text
             data_dict = json.loads(data)
-            self.add_vacancy(data_dict)
             return data_dict
         else:
             print("Ошибка при выполнении запроса:", response.status_code)
             return None
+
+    def get_search_vacancies(self, search_data, n=10):
+        return self.get_vacancies_api(text=search_data, per_page=n)
+
+    def get_region_vacancies(self, region):
+        return self.get_vacancies_api(area=region)
+
+
+# from src.func.beautiful_table import print_prettytable_hhru
+#
+# hh = HeadHunter()
+#
+# print_prettytable_hhru(hh.get_search_vacancies("python"))
+# # hh.printj(hh.get_search_vacancies("python"))
