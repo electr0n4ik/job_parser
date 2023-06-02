@@ -13,7 +13,8 @@ class Vacancy:
         - ссылка на вакансию;
         - регион.
     """
-    def __init__(self, name: str, salary: str, company_name: str, description: str, link: str, region: str):
+    def __init__(self, id: str, name: str, salary: str, company_name: str, description: str, link: str, region: str):
+        self.id = self.validate_str(id, "id")
         self.name = self.validate_str(name, "title")
         self.salary = self.validate_int_float(salary, "salary")
         self.company_name = self.validate_str(company_name, "company_name")

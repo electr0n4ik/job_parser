@@ -4,13 +4,15 @@ from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
 from src.json_job_file import JSONJobFile
+from src.vacancy import Vacancy
 
 
 def run_user_interface():
     """Функция для взаимодействия с пользователем в консоли."""
     global res
+    global vacancies
+
     flag_1 = True
-    flag_2 = True
 
     hh = HeadHunter
     sj = SuperJob
@@ -18,6 +20,7 @@ def run_user_interface():
     list_platforms = [hh, sj, tv]
 
     print_welcome_user_1()
+
     # Блок получения информации о вакансиях с выбранной платформы в России
     while flag_1:
         print_welcome_user_2()
@@ -28,13 +31,16 @@ def run_user_interface():
 
             while True:
                 print_operations()
-
                 choice = input("Выбери цифрой (1, 2, 3, 4) запрос: ")
 
                 if choice == "1":
                     search_query = input("Введите поисковый запрос: ")
                     res = platform().get_search_vacancies(search_query)
                     print(print_result_search(platform, res))
+                    vacancies = []
+                    for vac in print_result_search(platform, res):
+                        vacancy = Vacancy(vac[0], vac[1], vac[2], vac[3], vac[4], vac[5], vac[6])
+                        vacancies.append(vacancy)
                     input("Нажмите ENTER, чтобы продолжить!")
                     break
 
@@ -69,6 +75,7 @@ def run_user_interface():
 
                 elif choice == "0":
                     break
+
                 else:
                     print("\nВЫБЕРИ ЗАПРОС ВЕРНО!\n")
                     continue
@@ -81,16 +88,17 @@ def run_user_interface():
             # Блок управления вакансиями в файле
             while True:
                 user_choice = input("1 - Посмотреть вакансии\n"
-                                    "2 - Фильтровать по зарплате\n"
-                                    "3 - Удалить вакансии по id\n"
+                                    "2 - Удалить вакансию по id\n"
                                     "0 - Назад\n")
 
                 if user_choice == "1":
                     print(js_file.get_vacancies(platform))
+
                 elif user_choice == "2":
-                    pass
-                elif user_choice == "3":
-                    pass
+                    del_vacancy = input("id вакансии: ")
+                    for vac in vacancies:
+                        if vac.id == del_vacancy:
+                            vacancies.remove(vac)
                 elif user_choice == "0":
                     break
                 input("Нажмите ENTER, чтобы продолжить!")
