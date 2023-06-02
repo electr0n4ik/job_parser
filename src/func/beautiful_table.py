@@ -17,7 +17,7 @@ def print_prettytable_hhru(json_data):
     for item in json_data["items"]:
         item_values = []
         item_values.append(item.get("id", ""))
-        item_values.append(item.get("name", ""))
+        item_values.append(item.get("name", "")[:30])
         if item.get("salary", "") is not None:
             item_values.append(f'{item.get("salary", {}).get("from", "")} '
                                f'{item.get("salary", {}).get("currency", "")}')
@@ -41,6 +41,30 @@ def print_prettytable_hhru(json_data):
 
 
 def print_prettytable_sj(json_data):
+
+    table = get_prettytable()
+
+    for item in json_data["objects"]:
+        item_values = []
+        item_values.append(item.get("id", ""))
+        item_values.append(item.get("profession", "")[:30])
+        if item.get("payment_from", "") is not None:
+            item_values.append(f'{item.get("payment_from", "")} {item.get("currency", "")}')
+        elif item.get("payment_to", "") is not None:
+            item_values.append(f'{item.get("payment_to", "")} {item.get("currency", "")}')
+        else:
+            item_values.append("Не указана")
+        item_values.append(item.get("firm_name", "")[:10])
+        item_values.append(item.get("vacancyRichText", "")[:50])
+        item_values.append(item.get("link", "")[7:])
+        item_values.append(item.get("town", {}).get("title", ""))
+
+        table.add_row(item_values)
+
+    return table
+
+
+def print_prettytable_tv(json_data):
 
     table = get_prettytable()
 

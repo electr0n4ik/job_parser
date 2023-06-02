@@ -49,5 +49,5 @@ class SuperJob(JobApi):
         return self.get_vacancies_api(keyword=search_data)
 
 
-sj = SuperJob()
-sj.printj(sj.get_vacancies_api())
+# sj = SuperJob()
+# sj.printj(sj.get_vacancies_api())

@@ -43,8 +43,10 @@ def run_user_interface():
                             input("Нажмите ENTER, чтобы продолжить!")
 
                         elif choice == "2":
-                            n = int(input("Сколько получить вакансий по убыванию зарплаты? "))
-                            # Здесь можно вызвать соответствующую функцию для получения топ N вакансий по зарплате
+                            n = int(input("Сколько получить вакансий по возрастанию зарплаты? "))
+                            res = platform().get_search_vacancies(n)
+                            print(print_result_search(platform, res))
+                            input("Нажмите ENTER, чтобы продолжить!")
 
                         elif choice == "3":
                             vac_region = input("Получить вакансии выбранного региона: ")

@@ -47,9 +47,9 @@ class HeadHunter(JobApi):
         return self.get_vacancies_api(text=search_data)
 
 
-from src.func.beautiful_table import print_prettytable_hhru
-
-hh = HeadHunter()
-
-print_prettytable_hhru(hh.get_search_vacancies("python"))
-# hh.printj(hh.get_search_vacancies("python"))
+# from src.func.beautiful_table import print_prettytable_hhru
+#
+# hh = HeadHunter()
+#
+# print_prettytable_hhru(hh.get_search_vacancies("python"))
+# # hh.printj(hh.get_search_vacancies("python"))
