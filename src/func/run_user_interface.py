@@ -8,6 +8,7 @@ from src.trudvsem import TrudVsem
 
 def run_user_interface():
     """Функция для взаимодействия с пользователем в консоли."""
+    global res
     flag_1 = True
     flag_2 = True
 
@@ -25,7 +26,7 @@ def run_user_interface():
             platform = list_platforms[int(user_input_pl) - 1]
             print(f"Выбран сайт {platform()}\n")
 
-            while flag_2:
+            while True:
                 print_operations()
 
                 choice = input("Выбери цифрой (1, 2, 3, 4) запрос: ")
@@ -35,6 +36,7 @@ def run_user_interface():
                     res = platform().get_search_vacancies(search_query)
                     print(print_result_search(platform, res))
                     input("Нажмите ENTER, чтобы продолжить!")
+                    break
 
                 elif choice == "2":
                     search_query = input("Введите поисковый запрос: ")
@@ -47,6 +49,7 @@ def run_user_interface():
                         res = platform().get_search_vacancies(search_query, 100)
                     print(print_result_search(platform, res, "Зарплата"))
                     input("Нажмите ENTER, чтобы продолжить!")
+                    break
 
                 elif choice == "3":
                     region = input("Получить вакансии выбранного региона: ")
@@ -54,6 +57,7 @@ def run_user_interface():
                     res = platform().get_region_vacancies(region, n)
                     print(print_result_search(platform, res))
                     input("Нажмите ENTER, чтобы продолжить!")
+                    break
 
                 elif choice == "4":
                     keywords = input("Получить вакансии, по ключевому слову в описании: ")
@@ -61,9 +65,9 @@ def run_user_interface():
                     res = platform().get_region_vacancies(keywords, n)
                     print(print_result_search(platform, res))
                     input("Нажмите ENTER, чтобы продолжить!")
+                    break
 
                 elif choice == "0":
-                    flag_2 = False
                     break
                 else:
                     print("\nВЫБЕРИ ЗАПРОС ВЕРНО!\n")
@@ -72,15 +76,21 @@ def run_user_interface():
             # Блок сохранения информации о вакансиях в файл
             choice_save_file = print_save_format()
 
-            save_file(choice_save_file)
+            file_vacancies = save_file(choice_save_file, res)
 
             # Блок управления вакансиями в файле
-            user_choice = input("1 - Посмотреть вакансии"
-                                "2 - Фильтровать по зарплате"
+            user_choice = input("1 - Посмотреть вакансии\n"
+                                "2 - Фильтровать по зарплате\n"
                                 "3 - Удалить вакансии по id")
 
-
-
+            if user_choice == "1":
+                with open(file_vacancies) as file:
+                    pass
+            elif user_choice == "2":
+                pass
+            elif user_choice == "3":
+                pass
+            input("Нажмите ENTER, чтобы продолжить!")
 
         elif user_input_pl == "0":
             flag_1 = False

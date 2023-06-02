@@ -35,7 +35,6 @@ def print_save_format():
     choice_save_file = input("Выбери формат сохранения файла цифрой:\n"
                              "1 - JSON\n"
                              "2 - CSV\n"
-                             "3 - EXCEL\n"
-                             "4 - TXT\n"
-                             "\n0 - по умолчанию.")
+                             "3 - TXT\n"
+                             "\n0 - по умолчанию.\n")
     return choice_save_file

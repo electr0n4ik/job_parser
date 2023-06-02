@@ -7,36 +7,23 @@ class JSONJobFile(JobFile):
     def __init__(self, filename):
         self.filename = filename
 
-    @staticmethod
-    def criteria_matches(vacancy, criteria):
-        # Проверяем, соответствует ли зарплата критериям
-        if 'salary_min' in criteria and vacancy.get('salary_min') < criteria['salary_min']:
-            return False
-
-        # Проверяем, соответствует ли должность критериям
-        if 'job_name' in criteria and vacancy.get('job_name') != criteria['job_name']:
-            return False
-        # TODO
-        # Подумать над другими проверками критериев
-        # Другие проверки критериев...
-
-        return True
-
-    def add_vacancy_json(self, vacancy_data):
+    def add_vacancy(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
         folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)
 
         with open(file_path, "w", encoding="utf-8") as file:
             json.dump(vacancy_data, file, indent=2, ensure_ascii=False)
+        return file_path
 
-    def get_vacancies(self, criteria):
+    def get_vacancies(self, **kwargs):
         vacancies = []
         with open(self.filename, 'r') as file:
             for line in file:
                 vacancy = json.loads(line)
-                if self.criteria_matches(vacancy, criteria):
-                    vacancies.append(vacancy)
+                # TODO
+                # if self.criteria_matches(vacancy, criteria):
+                #     vacancies.append(vacancy)
         return vacancies
 
     def remove_vacancy(self, vacancy_id):

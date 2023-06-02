@@ -22,22 +22,23 @@ class TXTJobFile(JobFile):
 
         return True
 
-    def add_vacancy_txt(self, vacancy_data):
+    def add_vacancy(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
         folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)
 
         with open(file_path, "w") as file:
             file.write(json.dumps(vacancy_data))
+        return file_path
 
     def get_vacancies(self, criteria):
         vacancies = []
         with open(self.filename, 'r') as file:
             data = json.load(file)
-            if isinstance(data, list):
-                for vacancy in data:
-                    if self.criteria_matches(vacancy, criteria):
-                        vacancies.append(vacancy)
+            # if isinstance(data, list):
+            #     for vacancy in data:
+            #         if self.criteria_matches(vacancy, criteria):
+            #             vacancies.append(vacancy)
         return vacancies
 
     def remove_vacancy(self, vacancy_id):
