@@ -14,7 +14,7 @@ class TrudVsem(JobApi):
 
     def __init__(self):
         filename = "trudvsem.json"
-        super().__init__(filename)
+        self.filename = filename
 
     def __str__(self):
         return "trudvsem.ru"
@@ -48,3 +48,7 @@ class TrudVsem(JobApi):
 
     def get_region_vacancies(self, region, n=10):
         return self.get_vacancies_api(region=region, limit=n)
+
+# tv = TrudVsem()
+#
+# tv.printj(tv.get_vacancies_api(limit=1))

@@ -67,20 +67,18 @@ def print_prettytable_tv(json_data, sorty):
 
     table = get_prettytable()
 
-    for item in json_data["objects"]:
+    for item in json_data.get("results", {}).get("vacancies", []):
         item_values = []
-        item_values.append(item.get("id", ""))
-        item_values.append(item.get("profession", ""))
-        if item.get("payment_from", "") is not None:
-            item_values.append(f'{item.get("payment_from", "")} {item.get("currency", "")}')
-        elif item.get("payment_to", "") is not None:
-            item_values.append(f'{item.get("payment_to", "")} {item.get("currency", "")}')
+        item_values.append(item["vacancy"].get("id", ""))
+        item_values.append(item["vacancy"].get("job-name", ""))
+        if item.get("salary", "") is not None:
+            item_values.append(f'{item["vacancy"].get("salary", "")} руб.')
         else:
             item_values.append("Не указана")
-        item_values.append(item.get("firm_name", ""))
-        item_values.append(item.get("vacancyRichText", ""))
-        item_values.append(item.get("alternate_url", ""))
-        item_values.append(item.get("area", {}).get("name", ""))
+        item_values.append(item["vacancy"].get("company", {}).get("name", ""))
+        item_values.append(item["vacancy"].get("duty", ""))
+        item_values.append(item["vacancy"].get("vac_url", ""))
+        item_values.append(item["vacancy"].get("vacancy", {}).get("name", ""))
 
         table.add_row(item_values)
 

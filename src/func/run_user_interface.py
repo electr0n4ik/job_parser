@@ -74,23 +74,26 @@ def run_user_interface():
                     continue
 
             # Блок сохранения информации о вакансиях в файл
-
             filename = "data_vacancies.json"
             js_file = JSONJobFile(filename)  # JSON
             file_path = js_file.add_vacancy(res)
 
             # Блок управления вакансиями в файле
-            user_choice = input("1 - Посмотреть вакансии\n"
-                                "2 - Фильтровать по зарплате\n"
-                                "3 - Удалить вакансии по id\n")
+            while True:
+                user_choice = input("1 - Посмотреть вакансии\n"
+                                    "2 - Фильтровать по зарплате\n"
+                                    "3 - Удалить вакансии по id\n"
+                                    "0 - Назад\n")
 
-            if user_choice == "1":
-                print(js_file.get_vacancies(platform))
-            elif user_choice == "2":
-                pass
-            elif user_choice == "3":
-                pass
-            input("Нажмите ENTER, чтобы продолжить!")
+                if user_choice == "1":
+                    print(js_file.get_vacancies(platform))
+                elif user_choice == "2":
+                    pass
+                elif user_choice == "3":
+                    pass
+                elif user_choice == "0":
+                    break
+                input("Нажмите ENTER, чтобы продолжить!")
 
         elif user_input_pl == "0":
             flag_1 = False
