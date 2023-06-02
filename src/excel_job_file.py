@@ -22,7 +22,7 @@ class EXCELJobFile(JobFile):
 
         return True
 
-    def add_vacancy_exel(self, vacancy_data):
+    def add_vacancy_excel(self, vacancy_data):
         os.chdir(os.path.abspath(".."))
         folder_path = os.path.abspath("data_vacancies")
         file_path = os.path.join(folder_path, self.filename)

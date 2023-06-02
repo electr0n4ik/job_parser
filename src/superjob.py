@@ -48,8 +48,8 @@ class SuperJob(JobApi):
     def get_search_vacancies(self, search_data, n=10):
         return self.get_vacancies_api(keyword=search_data, count=n)
 
-    def get_region_vacancies(self, region):
-        return self.get_vacancies_api(town=region)
+    def get_region_vacancies(self, region, n=10):
+        return self.get_vacancies_api(town=region, count=n)
 
 
 # sj = SuperJob()

@@ -1,5 +1,6 @@
 from src.func.prints import print_operations, print_welcome_user_1, print_welcome_user_2
-from src.func.prints import print_result_search
+from src.func.prints import print_result_search, print_save_format
+from src.func.save_file import save_file
 from src.headhunter import HeadHunter
 from src.superjob import SuperJob
 from src.trudvsem import TrudVsem
@@ -16,7 +17,7 @@ def run_user_interface():
     list_platforms = [hh, sj, tv]
 
     print_welcome_user_1()
-
+    # Блок получения информации о вакансиях с выбранной платформы в России
     while flag_1:
         print_welcome_user_2()
         user_input_pl = input("Выбери цифрой платформу: ")
@@ -38,9 +39,9 @@ def run_user_interface():
                 elif choice == "2":
                     search_query = input("Введите поисковый запрос: ")
                     n_salary = int(input("Сколько получить вакансий по возрастанию зарплаты? "))
-                    if 0 < int(n) < 100:
+                    if 0 < int(n_salary) < 100:
                         res = platform().get_search_vacancies(search_query, n_salary)
-                    elif int(n) < 0:
+                    elif int(n_salary) < 0:
                         res = platform().get_search_vacancies(search_query, 10)
                     else:
                         res = platform().get_search_vacancies(search_query, 100)
@@ -49,14 +50,17 @@ def run_user_interface():
 
                 elif choice == "3":
                     region = input("Получить вакансии выбранного региона: ")
-                    res = platform().get_region_vacancies(region)
+                    n = input("Количество для вывода: ")
+                    res = platform().get_region_vacancies(region, n)
                     print(print_result_search(platform, res))
                     input("Нажмите ENTER, чтобы продолжить!")
 
                 elif choice == "4":
                     keywords = input("Получить вакансии, по ключевому слову в описании: ")
-                    # Здесь можно вызвать соответствующую функцию для поиска
-                    # вакансий с указанными ключевыми словами
+                    n = input("Количество для вывода: ")
+                    res = platform().get_region_vacancies(keywords, n)
+                    print(print_result_search(platform, res))
+                    input("Нажмите ENTER, чтобы продолжить!")
 
                 elif choice == "0":
                     flag_2 = False
@@ -64,6 +68,19 @@ def run_user_interface():
                 else:
                     print("\nВЫБЕРИ ЗАПРОС ВЕРНО!\n")
                     continue
+
+            # Блок сохранения информации о вакансиях в файл
+            choice_save_file = print_save_format()
+
+            save_file(choice_save_file)
+
+            # Блок управления вакансиями в файле
+            user_choice = input("1 - Посмотреть вакансии"
+                                "2 - Фильтровать по зарплате"
+                                "3 - Удалить вакансии по id")
+
+
+
 
         elif user_input_pl == "0":
             flag_1 = False

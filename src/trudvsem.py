@@ -47,5 +47,5 @@ class TrudVsem(JSONJobFile, JobApi):
     def get_search_vacancies(self, search_data, n=10):
         return self.get_vacancies_api(text=search_data, limit=n)
 
-    def get_region_vacancies(self, region):
-        return self.get_vacancies_api(region=region)
+    def get_region_vacancies(self, region, n=10):
+        return self.get_vacancies_api(region=region, limit=n)
